@@ -10,7 +10,7 @@ wn.bgpic("background_2.png")
 
 
 # block.gif 사용해 미로 만들기
-class Pen(turtle.Turtle):
+class Maze(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
         v = self.getscreen()
@@ -21,7 +21,7 @@ class Pen(turtle.Turtle):
 
 
 # character.gif 사용해 방역복 캐릭터 그리기
-class Player(turtle.Turtle):
+class Character(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
         v = self.getscreen()
@@ -164,8 +164,8 @@ def setup_maze(level):
                 viruses.append(Virus(screen_x, screen_y))
 
 
-pen = Pen()
-player = Player()
+pen = Maze()
+player = Character()
 
 walls = []
 
