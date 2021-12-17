@@ -2,12 +2,14 @@ import turtle
 import math
 from time import sleep
 
+# 기본 화면 구성
 wn = turtle.Screen()
 wn.setup(1280, 720)
 wn.tracer(0)
 wn.bgpic("background_2.png")
 
 
+# block.gif 사용해 미로 만들기
 class Pen(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
@@ -18,6 +20,7 @@ class Pen(turtle.Turtle):
         self.speed(3)
 
 
+# character.gif 사용해 방역복 캐릭터 그리기
 class Player(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
@@ -28,6 +31,7 @@ class Player(turtle.Turtle):
         self.speed(0)
         self.gold = 0
 
+    # 캐릭터 미로 안에서 움직임 (up, down, left, right)
     def go_up(self):
         move_to_x = player.xcor()
         move_to_y = player.ycor() + 24
@@ -56,6 +60,7 @@ class Player(turtle.Turtle):
         if (move_to_x, move_to_y) not in walls:
             self.goto(move_to_x, move_to_y)
 
+    # 캐릭터, 아이템 충돌 시
     def is_collision(self, other):
         a = self.xcor() - other.xcor()
         b = self.ycor() - other.ycor()
@@ -67,6 +72,7 @@ class Player(turtle.Turtle):
             return False
 
 
+# vaccine.gif 사용해 백신 아이템 그리기
 class Treasure(turtle.Turtle):
     def __init__(self, x, y):
         turtle.Turtle.__init__(self)
@@ -78,11 +84,13 @@ class Treasure(turtle.Turtle):
         self.gold = 100
         self.goto(x, y)
 
+    # 백신 아이템 충돌 시 아이템 먹기
     def destroy(self):
         self.goto(2000, 2000)
         self.hideturtle()
 
 
+# virus.gif 사용해 바이러스 그리기
 class Virus(turtle.Turtle):
     def __init__(self, x, y):
         turtle.Turtle.__init__(self)
@@ -94,11 +102,13 @@ class Virus(turtle.Turtle):
         self.gold = 100
         self.goto(x, y)
 
+    # 바이러스 충돌 시 감염
     def destroy(self):
         self.goto(2000, 2000)
         self.hideturtle()
 
 
+# X, P, T, V를 사용해 미로와 아이템 나타냄
 level = [""]
 
 
@@ -134,6 +144,7 @@ viruses = []
 level.append(level_1)
 
 
+# X, P, T, V를 사용해 미로와 아이템 그리기
 def setup_maze(level):
     for y in range(len(level)):
         for x in range(len(level[y])):
@@ -160,15 +171,18 @@ walls = []
 
 setup_maze(level[1])
 
+# 키보드 방향기
 turtle.listen()
 turtle.onkey(player.go_left, "Left")
 turtle.onkey(player.go_right, "Right")
 turtle.onkey(player.go_up, "Up")
 turtle.onkey(player.go_down, "Down")
 
-Gold_left = 5
+# 백신 아이템 개수
+Vaccine_left = 5
 wn.tracer(0)
 
+# 게임 구현 코드 (백신 => 아이템, 바이러스 => 게임 종료)
 while True:
     for virus in viruses:
         if player.is_collision(virus):
@@ -188,10 +202,10 @@ while True:
         if player.is_collision(treasure):
             turtle.hideturtle()
             player.gold += treasure.gold
-            Gold_left = Gold_left - 1
+            Vaccine_left = Vaccine_left - 1
             turtle.clear()
             treasure.destroy()
-            if Gold_left == 0:
+            if Vaccine_left == 0:
                 turtle.clear()
                 treasure.destroy()
                 wn.update()
@@ -206,4 +220,3 @@ while True:
             wn.update()
 
         wn.update()
-
