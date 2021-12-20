@@ -207,7 +207,7 @@ def sTage01_game() :
                 heart -= 1 # 스코어, 생명 깎임
             screen.blit(virus2_image, virus2['virus2']) # 바이러스 화면에 그리기
             
-        if score > 1:
+        if score > 4:
             screen.blit(game_clear_image, game_clear)
             running = False # 2초 대기 후 종료
         
@@ -315,7 +315,7 @@ def stage_04():
     wn = turtle.Screen()
     wn.setup(1280, 720)
     wn.tracer(0)
-    wn.bgpic("background_2.png")
+    wn.bgpic("게임 화면_2.png")
 
 
     # block.gif 사용해 미로 만들기
@@ -1097,7 +1097,8 @@ while playing :
                         screen.blit(background_04,(0,0))
                         pygame.display.update()
                         
-                        pygame.quit
+                        break
+
             elif mouse_pos[0] > 924 and mouse_pos[0] < 1144 and mouse_pos[1] > 220 and mouse_pos[1] < 470 :
                 if pygame.mouse.get_pressed():
                     stage_04()
