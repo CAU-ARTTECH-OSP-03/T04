@@ -1,2 +1,0 @@
-practice.py contains the game code
-therefore, no need to run main.py => ignore main.py
