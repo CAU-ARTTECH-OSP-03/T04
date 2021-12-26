@@ -207,12 +207,13 @@ def sTage01_game() :
                 heart -= 1 # 스코어, 생명 깎임
             screen.blit(virus2_image, virus2['virus2']) # 바이러스 화면에 그리기
             
-        if score > 4:
+        if score > 30:
             screen.blit(game_clear_image, game_clear)
             running = False # 2초 대기 후 종료
         
         elif score < 0 or heart == 0:
             screen.blit(game_over_image, game_over)
+            
             running = False # 2초 대기 후 종료
          
     
@@ -315,7 +316,7 @@ def stage_04():
     wn = turtle.Screen()
     wn.setup(1280, 720)
     wn.tracer(0)
-    wn.bgpic("게임 화면_2.png")
+    wn.bgpic("background_2.png")
 
 
     # block.gif 사용해 미로 만들기
@@ -604,14 +605,15 @@ def stage_02():
 
         if running:       
             current_time = int(time.time())
-            time_left = 10 - (current_time - time_start)
+            time_left = 60 - (current_time - time_start)
 
             if time_left <= 0:
                 if score < 120:
                     screen.blit(game_over_image, game_over)
+                    running = False
                 else:
                     screen.blit(game_clear_image, game_clear)
-                running = False
+                    running = False
             
                 for virus, virus_appear, virus_gone in viruses:
                     current_time = int(time.time())
@@ -1061,7 +1063,7 @@ while playing :
         if event.type == pygame.MOUSEBUTTONDOWN :
             pygame.mouse.get_rel()
             mouse_pos = pygame.mouse.get_pos()
-            if mouse_pos[0] > 56 and mouse_pos[0] < 306 and mouse_pos[1] > 220 and mouse_pos[1] < 470 :
+            if mouse_pos[0] > 56 and mouse_pos[0] < 306 and mouse_pos[1] > 220 and mouse_pos[1] < 470 :#바이러스 떨어지는거
                 if pygame.mouse.get_pressed():
                     sTage01_game() 
                     return_false()
@@ -1073,7 +1075,7 @@ while playing :
                         screen.blit(background_04,(0,0))
                         pygame.display.update()
                         break
-            elif mouse_pos[0] > 312 and mouse_pos[0] < 532 and mouse_pos[1] > 220 and mouse_pos[1] < 470 :
+            elif mouse_pos[0] > 312 and mouse_pos[0] < 532 and mouse_pos[1] > 220 and mouse_pos[1] < 470 : #두더지 잡기
                     if pygame.mouse.get_pressed():
                         stage_02()
                         return_false()
@@ -1085,7 +1087,7 @@ while playing :
                             screen.blit(background_04,(0,0))
                             pygame.display.update()
                             break
-            elif mouse_pos[0] > 618 and mouse_pos[0] < 838 and mouse_pos[1] > 220 and mouse_pos[1] < 470 :
+            elif mouse_pos[0] > 618 and mouse_pos[0] < 838 and mouse_pos[1] > 220 and mouse_pos[1] < 470 : #문제 맞추기
                 if pygame.mouse.get_pressed():
                     stage_03()
                     return_false()
@@ -1096,11 +1098,10 @@ while playing :
                         waitClick()
                         screen.blit(background_04,(0,0))
                         pygame.display.update()
-                        
                         break
-
-            elif mouse_pos[0] > 924 and mouse_pos[0] < 1144 and mouse_pos[1] > 220 and mouse_pos[1] < 470 :
+                        
+            elif mouse_pos[0] > 924 and mouse_pos[0] < 1144 and mouse_pos[1] > 220 and mouse_pos[1] < 470 : #미로 게임
                 if pygame.mouse.get_pressed():
                     stage_04()
-                    return_false()
+                    
             
